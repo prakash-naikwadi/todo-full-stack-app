@@ -72,6 +72,29 @@ exports.updateTodo = async (req, res) => {
   }
 };
 
+// delete todo
+
+exports.deleteToDo = async (req, res) => {
+  try {
+    const todoId = req.params.id;
+    const toDoDeleteStatus = await ToDo.findByIdAndDelete(todoId);
+    console.log(toDoDeleteStatus);
+    if (!toDoDeleteStatus) {
+      throw new Error("To Do Not Found");
+    }
+    res.status(201).json({
+      success: true,
+      message: "ToDo Deleted Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({
+      success: false,
+      message: "Not Deleted " + error,
+    });
+  }
+};
+
 // Create To Do Tasks
 
 exports.createToDoTask = async (req, res) => {
@@ -81,8 +104,6 @@ exports.createToDoTask = async (req, res) => {
 
     //check if todo exists or not
     const foundtodo = await ToDo.findOne({ _id: todoId });
-
-    console.log(tasks);
 
     foundtodo.tasks.push(tasks);
 
@@ -105,20 +126,58 @@ exports.createToDoTask = async (req, res) => {
 
 exports.updateTodoTask = async (req, res) => {
   try {
-    const id = req.params.todoTaskId;
+    const taskId = req.params.todoTaskId;
+    const todoId = req.params.todoId;
     const { description } = req.body;
 
-    const updatedToDoTask = await ToDo.findByIdAndUpdate(id, { title });
+    const ToDoTask = await ToDo.findById(todoId);
+
+    const task = ToDoTask.tasks.find((item) => {
+      return item._id.toString() === taskId;
+    });
+    console.log(task._id);
+
+    task.description = description;
+
+    ToDoTask.save();
 
     res.status(201).json({
       success: true,
-      message: "Todo Updated Successfully",
+      message: "Task Updated Successfully",
     });
   } catch (error) {
     console.log(error);
     res.status(401).json({
       success: false,
-      message: "Todo Not Updated",
+      message: "Task Not Updated",
+    });
+  }
+};
+
+// delete specific task from specific Todo
+
+exports.deleteTask = async (req, res) => {
+  try {
+    const todoId = req.params.todoId;
+    const todoTaskId = req.params.id;
+
+    // Finding Specific Todo from which we want to delete the task
+    const ToDoTask = await ToDo.findById(todoId);
+
+    // removing that specific task from TODo
+    ToDoTask.tasks.pull({ _id: todoTaskId });
+
+    ToDoTask.save();
+
+    res.status(201).json({
+      success: true,
+      message: "ToDo Deleted Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({
+      success: false,
+      message: "Not Deleted",
     });
   }
 };
