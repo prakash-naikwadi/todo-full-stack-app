@@ -3,6 +3,9 @@ import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 import uuid from "react-uuid";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
 const InputToDo = ({ setShowToDoForm, setTodos, fetchTodosData }) => {
   const [input, setInput] = useState("");
 
@@ -49,9 +52,17 @@ const InputToDo = ({ setShowToDoForm, setTodos, fetchTodosData }) => {
         onChange={handleChange}
         ref={inputElement}
       />
-      <div className="flex gap-3">
-        <button onClick={handleSave}>Save</button>
-        <button onClick={handleSetShow}>X</button>
+      <div className="flex items-center	 gap-3">
+        <button onClick={handleSave} className="flex items-center">
+          Save
+        </button>
+        <button onClick={handleSetShow}>
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="hover:text-gray-100"
+            style={{ color: "gray" }}
+          />
+        </button>
       </div>
     </li>
   );

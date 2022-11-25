@@ -5,6 +5,9 @@ import axios from "axios";
 import InputToDo from "./InputToDo";
 import { useRef } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 const ToDoList = () => {
   const [todos, setTodos] = useState([]);
   const [showToDoForm, setShowToDoForm] = useState(false);
@@ -27,9 +30,19 @@ const ToDoList = () => {
   return (
     <>
       <div className="p-2">
-        <div className="flex justify-between">
-          <h2>TO-DO</h2>
-          {showToDoForm ? "Add" : <button onClick={handleAdd}>Add</button>}
+        <div className="flex justify-between items-center	">
+          <h2 className="font-bold text-lg">TO-DO</h2>
+          <div>
+            {showToDoForm ? null : (
+              <button onClick={handleAdd} className="text-lg">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="hover:text-gray-100"
+                  style={{ color: "gray" }}
+                />
+              </button>
+            )}
+          </div>
         </div>
         <ul>
           {showToDoForm && (
