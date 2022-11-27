@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -23,10 +28,22 @@ function App() {
   return (
     <div className="container flex mx-auto">
       <Router>
-        <SideDrawer />
+        <SideDrawer
+          todos={todos}
+          setTodos={setTodos}
+          fetchTodosData={fetchTodosData}
+        />
 
         <Routes>
-          <Route path="/" element={<ToDoView />} />
+          {todos.length ? (
+            <Route
+              path="/"
+              element={<Navigate to={`/${todos[0]._id}/tasks`} replace />}
+            />
+          ) : (
+            <Route path="/" element={<ToDoView />} />
+          )}
+
           <Route
             path="/:todoId/tasks"
             element={

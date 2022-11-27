@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ToDoListItem from "./ToDoListItem";
 
-import axios from "axios";
 import InputToDo from "./InputToDo";
 import { useRef } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const ToDoList = () => {
-  const [todos, setTodos] = useState([]);
+const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
   const [showToDoForm, setShowToDoForm] = useState(false);
   let elementReference = useRef();
-
-  const fetchTodosData = async () => {
-    // fetching todos API call
-    const res = await axios.get("/getToDos");
-    setTodos(res.data.Todos);
-  };
-
-  useEffect(() => {
-    fetchTodosData();
-  }, []);
 
   const handleAdd = () => {
     setShowToDoForm((prev) => !prev);

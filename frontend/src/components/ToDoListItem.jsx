@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,7 @@ import "../../src/index.css";
 const ToDoListItem = ({ title, _id, todos, setTodos }) => {
   const [editMode, setEditMode] = useState(false);
   const [input, setInput] = useState(title);
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     let text = "Do You really want to delete";
@@ -23,6 +24,8 @@ const ToDoListItem = ({ title, _id, todos, setTodos }) => {
       });
       // console.log(newTodos);
       setTodos(newTodos);
+
+      navigate("/");
     }
   };
 

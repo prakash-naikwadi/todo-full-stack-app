@@ -16,8 +16,8 @@ const TasksPage = ({ todos, fetchTodosData }) => {
   };
   return (
     <div className="min-w-[60%] md:min-w-[75%] bg-gray-200 p-4 h-screen overflow-y-auto no-scrollbar">
-      <div className="flex justify-between mb-4">
-        <h2 className="text-xl font-bold">
+      <div className="flex justify-center sm:justify-between flex-wrap md:flex-nowrap	 mb-4">
+        <h2 className="text-xl md:pr-2 text-center font-bold">
           {todo ? capitalize(todo.title) : null}
         </h2>
 
@@ -27,7 +27,7 @@ const TasksPage = ({ todos, fetchTodosData }) => {
           todoId={todoId}
         />
       </div>
-      <div className="flex flex-wrap gap-2 p-2">
+      <div className="flex flex-wrap justify-center gap-2 p-2">
         {todo ? <Tasks todo={todo} todoId={todoId} /> : null}
         {todo ? todo.tasks.length <= 0 && <p>No Tasks Found</p> : null}
       </div>
