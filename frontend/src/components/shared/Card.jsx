@@ -1,9 +1,17 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
-const Card = ({ task }) => {
-  // console.log(props);
+const Card = ({ task, todoId, setTodoState, todoState }) => {
+  const handleDelete = async () => {
+    await axios.delete(`/${todoId}/deleteTask/${task._id}`);
+    const newTodoState = todoState.tasks.filter((item) => {
+      return item._id !== task._id;
+    });
+    setTodoState((prev) => ({ ...prev, tasks: newTodoState }));
+    console.log(newTodoState);
+  };
   return (
     <div className="flex flex-col	justify-between bg-white dark:bg-gray-800 w-72 shadow-lg rounded-xl p-4">
       <p className="text-gray-600 dark:text-white">
@@ -19,7 +27,7 @@ const Card = ({ task }) => {
             style={{ color: "gray" }}
           />
         </button>
-        <button>
+        <button onClick={handleDelete}>
           <FontAwesomeIcon
             icon={faTrash}
             className="hover:text-gray-100"
