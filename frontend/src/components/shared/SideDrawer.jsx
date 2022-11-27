@@ -3,7 +3,7 @@ import ToDoList from "../ToDoList";
 
 const SideDrawer = () => {
   return (
-    <div className="min-w-[40%] md:min-w-[25%] h-screen overflow-y-auto no-scrollbar">
+    <div className="min-w-[40%] md:min-w-[25%] h-screen overflow-y-auto no-scrollbar p-2">
       <ToDoList />
     </div>
   );

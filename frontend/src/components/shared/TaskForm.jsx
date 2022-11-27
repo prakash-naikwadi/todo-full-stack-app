@@ -18,9 +18,19 @@ const TaskForm = ({ fetchTodosData, todoId }) => {
     setTaskInput(e.target.value);
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" onChange={handleChange} value={taskInput} />
-      <button type="submit">Add Task</button>
+    <form onSubmit={handleSubmit} className="flex gap-2">
+      <input
+        type="text"
+        className="border-2 border-gray-50 rounded w-[400px] outline-1	outline-offset-0	outline-gray-200	"
+        onChange={handleChange}
+        value={taskInput}
+      />
+      <button
+        type="submit"
+        className="font-medium outline-1	outline-offset-0	outline-gray-200	"
+      >
+        Add Task
+      </button>
     </form>
   );
 };

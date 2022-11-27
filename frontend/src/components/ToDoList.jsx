@@ -31,7 +31,7 @@ const ToDoList = () => {
     <>
       <div className="p-2">
         <div className="flex justify-between items-center	">
-          <h2 className="font-bold text-lg">TO-DO</h2>
+          <h2 className="font-bold text-lg ">TO-DO</h2>
           <div>
             {showToDoForm ? null : (
               <button onClick={handleAdd} className="text-lg">
@@ -44,7 +44,7 @@ const ToDoList = () => {
             )}
           </div>
         </div>
-        <ul>
+        <ul className="mt-4">
           {showToDoForm && (
             <InputToDo
               forwardRef={elementReference}

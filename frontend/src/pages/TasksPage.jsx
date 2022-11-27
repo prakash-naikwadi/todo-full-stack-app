@@ -9,10 +9,17 @@ const TasksPage = ({ todos, fetchTodosData }) => {
   const todo = todos.find((todo) => {
     return todo._id === todoId;
   });
+
+  const capitalize = (text) => {
+    const newText = text.charAt(0).toUpperCase() + text.slice(1);
+    return newText;
+  };
   return (
-    <div className="min-w-[60%] md:min-w-[75%] bg-gray-200  h-screen overflow-y-auto no-scrollbar">
-      <div className="flex justify-between">
-        <h2>{todo ? todo.title : null}</h2>
+    <div className="min-w-[60%] md:min-w-[75%] bg-gray-200 p-4 h-screen overflow-y-auto no-scrollbar">
+      <div className="flex justify-between mb-4">
+        <h2 className="text-xl font-bold">
+          {todo ? capitalize(todo.title) : null}
+        </h2>
 
         <TaskForm
           fetchTodosData={fetchTodosData}

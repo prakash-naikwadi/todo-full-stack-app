@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+
+import "../../src/index.css";
 
 const ToDoListItem = ({ title, _id, todos, setTodos }) => {
   const [editMode, setEditMode] = useState(false);
@@ -45,7 +47,7 @@ const ToDoListItem = ({ title, _id, todos, setTodos }) => {
   };
 
   return (
-    <Link to={`/${_id}/tasks`}>
+    <NavLink to={`/${_id}/tasks`}>
       <li className="flex justify-between p-2 hover:bg-gray-200 cursor-pointer">
         {!editMode ? (
           <p>{input}</p>
@@ -80,7 +82,7 @@ const ToDoListItem = ({ title, _id, todos, setTodos }) => {
           </div>
         )}
       </li>
-    </Link>
+    </NavLink>
   );
 };
 
