@@ -8,7 +8,7 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 import "../../src/index.css";
 
-const ToDoListItem = ({ title, _id, todos, setTodos }) => {
+const ToDoListItem = ({ title, _id, todos, setTodos, fetchTodosData }) => {
   const [editMode, setEditMode] = useState(false);
   const [input, setInput] = useState(title);
   const navigate = useNavigate();
@@ -47,6 +47,7 @@ const ToDoListItem = ({ title, _id, todos, setTodos }) => {
 
     await axios.put(`/updateToDo/${_id}`, data);
     setEditMode(false);
+    fetchTodosData();
   };
 
   return (

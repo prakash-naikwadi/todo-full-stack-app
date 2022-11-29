@@ -38,7 +38,6 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
               forwardRef={elementReference}
               setTodos={setTodos}
               setShowToDoForm={setShowToDoForm}
-              fetchTodosData={fetchTodosData}
             />
           )}
 
@@ -48,6 +47,7 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
               {...todo}
               todos={todos}
               setTodos={setTodos}
+              fetchTodosData={fetchTodosData}
             />
           ))}
         </ul>
