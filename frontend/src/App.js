@@ -17,8 +17,12 @@ function App() {
 
   const fetchTodosData = async () => {
     // fetching todos API call
-    const res = await axios.get("/getToDos");
-    setTodos(res.data.Todos);
+    try {
+      const res = await axios.get("/getToDos");
+      setTodos(res.data.Todos.reverse());
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -35,6 +39,7 @@ function App() {
         />
 
         <Routes>
+          {console.log(todos)}
           {todos.length ? (
             <Route
               path="/"

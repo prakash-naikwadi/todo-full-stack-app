@@ -1,33 +1,41 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import uuid from "react-uuid";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const InputToDo = ({ setShowToDoForm, setTodos, fetchTodosData }) => {
+const InputToDo = ({ setShowToDoForm, setTodos }) => {
   const [input, setInput] = useState("");
-
   const inputElement = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     inputElement.current.focus();
   }, []);
 
+  const fetchTodosData = async () => {
+    // fetching todos API call
+    try {
+      const res = await axios.get("/getToDos");
+      setTodos(res.data.Todos.reverse());
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSave = async () => {
     const data = {
       title: input,
-      _id: uuid(),
     };
 
     // create ToDo API call
-
     await axios
       .post("/createToDo", data)
       .then(() => {
         alert("To Do Saved Successfully");
-        setTodos((prev) => [...prev, data]);
         setShowToDoForm(false);
         fetchTodosData();
       })
