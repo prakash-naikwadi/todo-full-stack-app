@@ -47,6 +47,10 @@ exports.createToDo = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(400).json({
+      success: false,
+      message: error?.errors?.title?.message,
+    });
   }
 };
 
@@ -105,19 +109,21 @@ exports.createToDoTask = async (req, res) => {
     //check if todo exists or not
     const foundtodo = await ToDo.findOne({ _id: todoId });
 
-    foundtodo.tasks.push(tasks);
+    if (foundtodo) {
+      await foundtodo.tasks.push(tasks);
 
-    foundtodo.save();
+      await foundtodo.save();
 
-    res.status(201).json({
-      success: true,
-      message: "Task Added Successfully",
-    });
+      res.status(201).json({
+        success: true,
+        message: "Task Added Successfully",
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(400).json({
       success: false,
-      message: "Error While Adding Task",
+      message: error?.errors["tasks.3.description"]?.message,
     });
   }
 };
@@ -165,9 +171,9 @@ exports.deleteTask = async (req, res) => {
     const ToDoTask = await ToDo.findById(todoId);
 
     // removing that specific task from TODo
-    ToDoTask.tasks.pull({ _id: todoTaskId });
+    await ToDoTask.tasks.pull({ _id: todoTaskId });
 
-    ToDoTask.save();
+    await ToDoTask.save();
 
     res.status(201).json({
       success: true,
