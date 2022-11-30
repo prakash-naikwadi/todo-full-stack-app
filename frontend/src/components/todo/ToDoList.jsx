@@ -25,7 +25,7 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
               <button onClick={handleAdd} className="text-lg">
                 <FontAwesomeIcon
                   icon={faPlus}
-                  className="hover:text-gray-100"
+                  className="hover:text-gray-100 text-[#1560bd]"
                   style={{ color: "gray" }}
                 />
               </button>

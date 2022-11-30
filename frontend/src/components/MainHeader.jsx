@@ -1,10 +1,10 @@
 import React from "react";
 import SearchBar from "./shared/SearchBar";
 
-const MainHeader = () => {
+const MainHeader = ({getSearchInput}) => {
   return (
     <div className="container mx-auto flex justify-center py-2">
-      <SearchBar />
+      <SearchBar getSearchInput={getSearchInput} />
     </div>
   );
 };

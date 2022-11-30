@@ -16,6 +16,7 @@ import SearchResultPage from "./pages/SearchResultPage";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const fetchTodosData = async () => {
     // fetching todos API call
@@ -31,10 +32,14 @@ function App() {
     fetchTodosData();
   }, []);
 
+  const getSearchInput = (input) => {
+    setSearchInput(input);
+  };
+
   return (
     <div>
       <Router>
-        <MainHeader />
+        <MainHeader getSearchInput={getSearchInput} />
         <div className="container flex mx-auto">
           <SideDrawer
             todos={todos}
@@ -58,7 +63,12 @@ function App() {
                 <TasksPage todos={todos} fetchTodosData={fetchTodosData} />
               }
             />
-            <Route path="/search" element={<SearchResultPage />} />
+            <Route
+              path="/search"
+              element={
+                <SearchResultPage searchInput={searchInput} todos={todos} />
+              }
+            />
           </Routes>
         </div>
       </Router>
