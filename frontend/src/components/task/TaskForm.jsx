@@ -34,7 +34,7 @@ const TaskForm = ({ fetchTodosData, todoId }) => {
       />
       <button
         type="submit"
-        className="font-medium outline-1	outline-offset-0	outline-gray-200	"
+        className="font-medium outline-1	outline-offset-0	outline-gray-200	text-[#1560bd] hover:text-blue-500"
       >
         Add Task
       </button>

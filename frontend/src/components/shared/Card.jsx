@@ -65,15 +65,13 @@ const Card = ({ task, todoId, setTodoState, todoState, fetchTodosData }) => {
         <button onClick={handleEdit}>
           <FontAwesomeIcon
             icon={faPenToSquare}
-            className="hover:text-gray-100"
-            style={{ color: "gray" }}
+            className="text-[#1560bd] hover:text-blue-500 font-bold"
           />
         </button>
         <button onClick={handleDelete}>
           <FontAwesomeIcon
             icon={faTrash}
-            className="hover:text-gray-100"
-            style={{ color: "gray" }}
+            className="text-gray-500 hover:text-[#de4573] "
           />
         </button>
       </div>
