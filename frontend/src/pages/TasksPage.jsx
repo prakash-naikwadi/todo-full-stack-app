@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import TaskForm from "../components/shared/TaskForm";
-import Tasks from "../components/Tasks";
+import TaskForm from "../components/task/TaskForm";
+import Tasks from "../components/task/Tasks";
 
 const TasksPage = ({ todos, fetchTodosData }) => {
   const { todoId } = useParams();

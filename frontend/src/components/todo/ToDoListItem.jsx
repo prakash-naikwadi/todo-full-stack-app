@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-import "../../src/index.css";
+import "../../index.css";
 
 const ToDoListItem = ({ title, _id, todos, setTodos, fetchTodosData }) => {
   const [editMode, setEditMode] = useState(false);

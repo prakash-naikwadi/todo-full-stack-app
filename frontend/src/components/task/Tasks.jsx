@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-import Card from "../components/shared/Card";
+import Card from "../shared/Card";
 
 const Tasks = ({ todo, todoId }) => {
   const [todoState, setTodoState] = useState(todo);

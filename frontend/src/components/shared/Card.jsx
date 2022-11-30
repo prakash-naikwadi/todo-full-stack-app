@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import EditTaskModal from "./modals/EditTaskModal";
+import EditTaskModal from "../modals/EditTaskModal";
 
 const Card = ({ task, todoId, setTodoState, todoState }) => {
   const [isedit, setIsEdit] = useState(false);

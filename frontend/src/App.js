@@ -8,8 +8,8 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import SideDrawer from "./components/shared/SideDrawer";
-import ToDoView from "./components/shared/ToDoView";
+import SideDrawer from "./components/SideDrawer";
+import ToDoView from "./components/todo/ToDoView";
 import TasksPage from "./pages/TasksPage";
 
 function App() {
