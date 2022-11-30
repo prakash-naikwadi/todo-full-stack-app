@@ -11,6 +11,8 @@ import axios from "axios";
 import SideDrawer from "./components/SideDrawer";
 import ToDoView from "./components/todo/ToDoView";
 import TasksPage from "./pages/TasksPage";
+import MainHeader from "./components/MainHeader";
+import SearchResultPage from "./pages/SearchResultPage";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -30,32 +32,35 @@ function App() {
   }, []);
 
   return (
-    <div className="container flex mx-auto">
+    <div>
       <Router>
-        <SideDrawer
-          todos={todos}
-          setTodos={setTodos}
-          fetchTodosData={fetchTodosData}
-        />
-
-        <Routes>
-          {console.log(todos)}
-          {todos.length ? (
-            <Route
-              path="/"
-              element={<Navigate to={`/${todos[0]._id}/tasks`} replace />}
-            />
-          ) : (
-            <Route path="/" element={<ToDoView />} />
-          )}
-
-          <Route
-            path="/:todoId/tasks"
-            element={
-              <TasksPage todos={todos} fetchTodosData={fetchTodosData} />
-            }
+        <MainHeader />
+        <div className="container flex mx-auto">
+          <SideDrawer
+            todos={todos}
+            setTodos={setTodos}
+            fetchTodosData={fetchTodosData}
           />
-        </Routes>
+
+          <Routes>
+            {todos.length ? (
+              <Route
+                path="/"
+                element={<Navigate to={`/${todos[0]._id}/tasks`} replace />}
+              />
+            ) : (
+              <Route path="/" element={<ToDoView />} />
+            )}
+
+            <Route
+              path="/:todoId/tasks"
+              element={
+                <TasksPage todos={todos} fetchTodosData={fetchTodosData} />
+              }
+            />
+            <Route path="/search" element={<SearchResultPage />} />
+          </Routes>
+        </div>
       </Router>
     </div>
   );
