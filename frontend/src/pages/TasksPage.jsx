@@ -29,7 +29,9 @@ const TasksPage = ({ todos, fetchTodosData }) => {
         />
       </div>
       <div className="flex flex-wrap justify-center gap-2 p-2">
-        {todo ? <Tasks todo={todo} todoId={todoId} /> : null}
+        {todo ? (
+          <Tasks todo={todo} todoId={todoId} fetchTodosData={fetchTodosData} />
+        ) : null}
         {todo ? todo.tasks.length <= 0 && <p>No Tasks Found</p> : null}
       </div>
     </div>

@@ -8,7 +8,14 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 import "../../index.css";
 
-const ToDoListItem = ({ title, _id, todos, setTodos, fetchTodosData }) => {
+const ToDoListItem = ({
+  title,
+  _id,
+  todos,
+  todo,
+  setTodos,
+  fetchTodosData,
+}) => {
   const [editMode, setEditMode] = useState(false);
   const [input, setInput] = useState(title);
   const navigate = useNavigate();
@@ -54,7 +61,10 @@ const ToDoListItem = ({ title, _id, todos, setTodos, fetchTodosData }) => {
     <NavLink to={`/${_id}/tasks`}>
       <li className="flex justify-between p-2 hover:bg-gray-200 cursor-pointer">
         {!editMode ? (
-          <p>{input}</p>
+          <div>
+            <p className="font-medium text-lg">{input}</p>
+            <p className="text-xs font-medium">R:{todo.tasks.length}</p>
+          </div>
         ) : (
           <input
             type="text"
@@ -63,8 +73,7 @@ const ToDoListItem = ({ title, _id, todos, setTodos, fetchTodosData }) => {
             onChange={handleChange}
           />
         )}
-        {/* <p>{title}</p> */}
-        {/* <input type="text" placeholder="Add To Do Name" value={title} readOnly /> */}
+
         {editMode ? (
           <button onClick={handleSave}>Save</button>
         ) : (
@@ -72,15 +81,13 @@ const ToDoListItem = ({ title, _id, todos, setTodos, fetchTodosData }) => {
             <button onClick={handleDelete}>
               <FontAwesomeIcon
                 icon={faTrash}
-                className="hover:text-gray-100"
-                style={{ color: "gray" }}
+                className="text-gray-500 hover:text-[#de4573] "
               />
             </button>
             <button onClick={handleEdit}>
               <FontAwesomeIcon
                 icon={faPenToSquare}
-                className="hover:text-gray-100"
-                style={{ color: "gray" }}
+                className="text-[#1560bd] hover:text-blue-500 font-bold"
               />
             </button>
           </div>

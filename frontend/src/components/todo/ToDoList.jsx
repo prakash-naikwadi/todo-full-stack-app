@@ -25,8 +25,7 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
               <button onClick={handleAdd} className="text-lg">
                 <FontAwesomeIcon
                   icon={faPlus}
-                  className="hover:text-gray-100 text-[#1560bd]"
-                  style={{ color: "gray" }}
+                  className="text-[#1560bd] hover:text-blue-500 font-bold"
                 />
               </button>
             )}
@@ -44,6 +43,7 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
           {todos.map((todo) => (
             <ToDoListItem
               key={todo._id}
+              todo={todo}
               {...todo}
               todos={todos}
               setTodos={setTodos}

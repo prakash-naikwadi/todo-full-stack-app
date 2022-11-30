@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Card from "../shared/Card";
 
-const Tasks = ({ todo, todoId }) => {
+const Tasks = ({ todo, todoId, fetchTodosData }) => {
   const [todoState, setTodoState] = useState(todo);
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const Tasks = ({ todo, todoId }) => {
       todoId={todoId}
       todoState={todoState}
       setTodoState={setTodoState}
+      fetchTodosData={fetchTodosData}
     />
   ));
 };

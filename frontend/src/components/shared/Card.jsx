@@ -6,7 +6,7 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import EditTaskModal from "../modals/EditTaskModal";
 
-const Card = ({ task, todoId, setTodoState, todoState }) => {
+const Card = ({ task, todoId, setTodoState, todoState, fetchTodosData }) => {
   const [isedit, setIsEdit] = useState(false);
 
   const handleEdit = () => {
@@ -21,6 +21,7 @@ const Card = ({ task, todoId, setTodoState, todoState }) => {
         return item._id !== task._id;
       });
       setTodoState((prev) => ({ ...prev, tasks: newTodoState }));
+      fetchTodosData();
       // console.log(newTodoState);
     }
   };
