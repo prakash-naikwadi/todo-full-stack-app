@@ -4,6 +4,10 @@ exports.home = (req, res) => {
   res.send("Hello World");
 };
 
+// -------------------------------
+
+// ToDos
+
 // Get all the todos
 
 exports.getToDos = async (req, res) => {
@@ -82,7 +86,7 @@ exports.deleteToDo = async (req, res) => {
   try {
     const todoId = req.params.id;
     const toDoDeleteStatus = await ToDo.findByIdAndDelete(todoId);
-    console.log(toDoDeleteStatus);
+    // console.log(toDoDeleteStatus);
     if (!toDoDeleteStatus) {
       throw new Error("To Do Not Found");
     }
@@ -98,6 +102,45 @@ exports.deleteToDo = async (req, res) => {
     });
   }
 };
+
+// get todos in ascending order
+exports.sortAscTimeStamp = async (req, res) => {
+  try {
+    const sortedData = await ToDo.find().sort({
+      createdAt: 1,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "ToDo Deleted Successfully",
+      sortedData,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// get todos in descending order
+
+exports.sortDescTimeStamp = async (req, res) => {
+  try {
+    const sortedData = await ToDo.find().sort({
+      createdAt: -1,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "ToDo Deleted Successfully",
+      sortedData,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// -------------------------------
+
+// Task
 
 // Create To Do Tasks
 
@@ -141,7 +184,7 @@ exports.updateTodoTask = async (req, res) => {
     const task = ToDoTask.tasks.find((item) => {
       return item._id.toString() === taskId;
     });
-    console.log(task._id);
+    // console.log(task._id);
 
     task.description = description;
 

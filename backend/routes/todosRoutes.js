@@ -9,6 +9,8 @@ const {
   updateTodoTask,
   deleteToDo,
   deleteTask,
+  sortDescTimeStamp,
+  sortAscTimeStamp,
 } = require("../controllers/toDoControllers");
 
 const router = express.Router();
@@ -20,6 +22,10 @@ router.get("/getToDos", getToDos);
 router.post("/createToDo", createToDo);
 router.put("/updateTodo/:id", updateTodo);
 router.delete("/deleteTodo/:id", deleteToDo);
+
+// sort todo route
+router.get("/getToDos/sort/des", sortDescTimeStamp);
+router.get("/getToDos/sort/asc", sortAscTimeStamp);
 
 // tasks routes
 router.post("/:todoId/createToDoTask", createToDoTask);
