@@ -9,9 +9,16 @@ const TaskForm = ({ fetchTodosData, todoId }) => {
     const data = {
       description: taskInput,
     };
-    await axios.post(`/${todoId}/createToDoTask`, data);
-    setTaskInput("");
-    fetchTodosData();
+    await axios
+      .post(`/${todoId}/createToDoTask`, data)
+      .then(() => {
+        setTaskInput("");
+        fetchTodosData();
+        alert("Saved Successfully");
+      })
+      .catch((res) => {
+        alert(res.response.data.message);
+      });
   };
 
   const handleChange = (e) => {

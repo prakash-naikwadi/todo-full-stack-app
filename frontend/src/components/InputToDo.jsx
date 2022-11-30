@@ -35,9 +35,9 @@ const InputToDo = ({ setShowToDoForm, setTodos }) => {
     await axios
       .post("/createToDo", data)
       .then(() => {
-        alert("To Do Saved Successfully");
         setShowToDoForm(false);
         fetchTodosData();
+        alert("To Do Saved Successfully");
       })
       .catch((res) => {
         alert(res.response.data.message);
