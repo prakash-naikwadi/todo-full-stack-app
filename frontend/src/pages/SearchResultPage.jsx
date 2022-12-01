@@ -22,19 +22,23 @@ const SearchResultPage = ({ searchInput, todos }) => {
     });
   });
 
+  const isEmpty = filteredTasksData.reduce((prev, item) => {
+    return prev + item.length;
+  }, 0);
+
   return (
     <div className="min-w-[60%] md:min-w-[75%] bg-gray-200 p-4 h-screen overflow-y-auto ">
       <div className="font-bold text-center">Search Results</div>
       <div className="flex flex-wrap justify-center gap-2 p-2">
-        {filteredTasksData.map((item) => {
-          if (item.length === 0)
-            return (
-              <p key={"aa286d811e9365b622a42a9483741"}>No Cards Found ...!</p>
-            );
-          return item.map((item) => {
-            return <Card task={item} key={item._id} />;
-          });
-        })}
+        {isEmpty === 0 ? (
+          <p key={"aa286d811e9365b622a42a9483741"}>No Cards Found ...!</p>
+        ) : (
+          filteredTasksData.map((item) => {
+            return item.map((item) => {
+              return <Card task={item} key={item._id} />;
+            });
+          })
+        )}
       </div>
     </div>
   );

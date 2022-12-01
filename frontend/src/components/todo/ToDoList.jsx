@@ -27,7 +27,7 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
   useEffect(() => {
     const fetchData = async (sort) => {
       const res = await axios.get(`/getToDos/sort/${sort}`);
-      console.log(res.data.sortedData);
+      // console.log(res.data.sortedData);
       setTodos(res.data.sortedData);
     };
     fetchData(selectedOption);
