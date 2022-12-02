@@ -20,6 +20,7 @@ const TodoSchema = new Schema(
         },
       },
     ],
+    user: { type: mongoose.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );

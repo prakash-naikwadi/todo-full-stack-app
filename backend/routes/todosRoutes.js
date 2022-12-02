@@ -1,5 +1,7 @@
 const express = require("express");
 
+const checkAuth = require("../middleware/checkAuth.js");
+
 const {
   createToDo,
   home,
@@ -16,6 +18,8 @@ const {
 const router = express.Router();
 
 router.get("/", home);
+
+router.use(checkAuth);
 
 // todos routes
 router.get("/getToDos", getToDos);

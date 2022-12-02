@@ -1,4 +1,7 @@
+const mongoose = require("mongoose");
 const ToDo = require("../models/ToDo");
+
+const User = require("../models/user");
 
 exports.home = (req, res) => {
   res.send("Hello World");
@@ -12,12 +15,22 @@ exports.home = (req, res) => {
 
 exports.getToDos = async (req, res) => {
   try {
-    const Todos = await ToDo.find();
+    const userId = req.userData.userId;
+
+    let userWithTodos = await User.findById(userId).populate("todos");
+
+    if (!userWithTodos) {
+      const error = new Error("User not Found");
+      throw error;
+    }
+    // const Todos = await ToDo.find().populate("user");
+
+    userWithTodos.password = "";
 
     res.status(201).json({
       success: true,
       message: "Records Fetched Successfully",
-      Todos,
+      userWithTodos,
     });
   } catch (error) {
     console.log(error);
@@ -28,26 +41,57 @@ exports.getToDos = async (req, res) => {
 
 exports.createToDo = async (req, res) => {
   try {
-    const { title, task } = req.body;
+    const { title } = req.body;
+
+    console.log(req.body);
 
     //check if todo exists or not
-    const todoExists = await ToDo.findOne({ title });
+    // const todoExists = await ToDo.findOne({ title });
 
-    if (todoExists) {
-      res.status(409).json({
-        success: false,
-        message: "To Do Already Exists",
-      });
-      throw new Error("To Do Already Exists");
-    }
+    // if (todoExists) {
+    //   res.status(409).json({
+    //     success: false,
+    //     message: "To Do Already Exists",
+    //   });
+    //   const error = new Error("To Do Already Exists");
+    //   throw error;
+    // }
 
     // Inserting into the Database
-    const todo = await ToDo.create({ title });
+    // const todo = await ToDo.create({ title, user: req.user });
+    const createTodo = new ToDo({
+      title,
+      user: req.userData.userId,
+    });
+
+    // Insert logic for user id is existed or not or throw error
+
+    let userExisted;
+    try {
+      userExisted = await User.findById(req.userData.userId);
+    } catch (err) {
+      const error = new Error("Creating place failed, please try again.", 500);
+      throw error;
+    }
+
+    if (!userExisted) {
+      const error = new Error("Could not find user for provided id.", 404);
+      throw error;
+    }
+
+    // console.log(userExisted);
+
+    // await createTodo.save();
+
+    await createTodo.save();
+    const createdToDoId = await ToDo.findOne({ title });
+    userExisted.todos.push(createdToDoId);
+    await userExisted.save();
 
     res.status(201).json({
       success: true,
-      message: "User Created Successfully",
-      todo,
+      message: "Todo Created Successfully",
+      createTodo,
     });
   } catch (error) {
     console.log(error);
@@ -88,7 +132,8 @@ exports.deleteToDo = async (req, res) => {
     const toDoDeleteStatus = await ToDo.findByIdAndDelete(todoId);
     // console.log(toDoDeleteStatus);
     if (!toDoDeleteStatus) {
-      throw new Error("To Do Not Found");
+      const error = new Error("To Do Not Found");
+      throw error;
     }
     res.status(201).json({
       success: true,
