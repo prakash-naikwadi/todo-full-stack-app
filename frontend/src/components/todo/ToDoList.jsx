@@ -17,6 +17,9 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
 
   const auth = useContext(AuthContext);
 
+  console.log(typeof todos, "Prakash");
+  console.log(todos.todos, "Prakash");
+
   let elementReference = useRef();
 
   const handleAdd = () => {
@@ -35,10 +38,10 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
       console.log(res);
-      setTodos(res.data.sortedData);
+      setTodos(res.data.sortedData.todos);
     };
     fetchData(selectedOption);
-  }, [selectedOption, setTodos]);
+  }, [selectedOption, setTodos, auth.token]);
 
   return (
     <>

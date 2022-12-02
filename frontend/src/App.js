@@ -17,12 +17,13 @@ import { useCallback } from "react";
 import AuthContext from "./components/context/AuthContext";
 import LoginForm from "./components/Forms/LoginForm";
 import { useAuth } from "./components/hooks/authHook";
+import SignupForm from "./components/Forms/SignupForm";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  const { token, login, userId } = useAuth();
+  const { token, login, userId, logout, userName } = useAuth();
 
   const fetchTodosData = useCallback(async () => {
     // fetching todos API call
@@ -31,7 +32,7 @@ function App() {
       const res = await axios.get("/getToDos", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      // console.log(res);
+      console.log(res, "main response");
       setTodos(res.data.userWithTodos.todos.reverse());
     } catch (error) {
       console.log(error);
@@ -53,13 +54,15 @@ function App() {
           isLoggedIn: !!token,
           token: token,
           login: login,
+          logout: logout,
           userId: userId,
+          userName: userName,
         }}
       >
         <Router>
           <MainHeader getSearchInput={getSearchInput} />
           {token ? (
-            <div className="container flex mx-auto">
+            <div className="container flex flex-col sm:flex-row	 mx-auto">
               <SideDrawer
                 todos={todos}
                 setTodos={setTodos}
@@ -91,10 +94,13 @@ function App() {
               </Routes>
             </div>
           ) : (
-            <div>
-              <LoginForm />
-            </div>
+            <Routes>
+              <Route path="/" element={<LoginForm />} />
+            </Routes>
           )}
+          <Routes>
+            <Route path="/signup" element={<SignupForm />} />
+          </Routes>
         </Router>
       </AuthContext.Provider>
     </div>

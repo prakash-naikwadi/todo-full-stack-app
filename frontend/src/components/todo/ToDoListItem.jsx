@@ -71,7 +71,7 @@ const ToDoListItem = ({
         {!editMode ? (
           <div>
             <p className="font-medium text-lg">{input}</p>
-            <p className="text-xs font-medium">R:{todo.tasks.length}</p>
+            <p className="text-xs font-medium">R:{todo.length}</p>
           </div>
         ) : (
           <input

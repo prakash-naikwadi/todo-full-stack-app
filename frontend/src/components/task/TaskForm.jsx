@@ -30,7 +30,10 @@ const TaskForm = ({ fetchTodosData, todoId }) => {
     setTaskInput(e.target.value);
   };
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 ">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-wrap	justify-center md:justify-start gap-2 "
+    >
       <input
         type="text"
         className="border-2 border-gray-50 rounded  md:w-[380px] outline-1	outline-offset-0	outline-gray-200	"

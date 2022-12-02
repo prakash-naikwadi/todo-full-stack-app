@@ -1,9 +1,51 @@
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
+  const navigate = useNavigate();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLoginFormChange = () => {
+    navigate("/");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (firstName.length <= 1 && lastName.length <= 1) {
+      alert("All fields are required");
+      return;
+    }
+    if (password.length <= 7) {
+      alert("Password Should Be greater than 7");
+      return;
+    }
+    const data = {
+      name: firstName.trim() + " " + lastName.trim(),
+      email: email.trim(),
+      password: password,
+    };
+    console.log(data);
+    axios
+      .post("/user/signup", data)
+      .then((res) => {
+        alert("User Created Successfully");
+        navigate("/");
+      })
+      .catch(() => {
+        alert("User Already Exist");
+        return;
+      });
+  };
+
   return (
-    <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-      <form>
+    <div className="block mx-auto p-6 rounded-lg shadow-lg bg-white max-w-md">
+      <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4">
           <div className="form-group mb-6">
             <input
@@ -26,6 +68,8 @@ function SignupForm() {
               id="exampleInput123"
               aria-describedby="emailHelp123"
               placeholder="First name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div className="form-group mb-6">
@@ -49,6 +93,8 @@ function SignupForm() {
               id="exampleInput124"
               aria-describedby="emailHelp124"
               placeholder="Last name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
         </div>
@@ -71,6 +117,8 @@ function SignupForm() {
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             id="exampleInput125"
             placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="form-group mb-6">
@@ -92,22 +140,11 @@ function SignupForm() {
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             id="exampleInput126"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="form-group form-check text-center mb-6">
-          <input
-            type="checkbox"
-            className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
-            id="exampleCheck25"
-            checked
-          />
-          <label
-            className="form-check-label inline-block text-gray-800"
-            for="exampleCheck25"
-          >
-            Subscribe to our newsletter
-          </label>
-        </div>
+
         <button
           type="submit"
           className="
@@ -131,6 +168,16 @@ function SignupForm() {
         >
           Sign up
         </button>
+        <p className="text-sm font-semibold mt-2 pt-1 mb-0">
+          Already have an account?
+          <a
+            href="#!"
+            className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
+            onClick={handleLoginFormChange}
+          >
+            &nbsp; Login
+          </a>
+        </p>
       </form>
     </div>
   );

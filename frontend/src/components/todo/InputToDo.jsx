@@ -60,7 +60,7 @@ const InputToDo = ({ setShowToDoForm, setTodos }) => {
     setShowToDoForm((prev) => !prev);
   };
   return (
-    <li className="flex justify-between p-2 hover:bg-gray-200 cursor-pointer">
+    <li className="flex flex-wrap	 justify-between p-2 hover:bg-gray-200 cursor-pointer">
       <input
         type="text"
         placeholder="Add To Do Name"
