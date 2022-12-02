@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const TaskForm = ({ fetchTodosData, todoId }) => {
   const [taskInput, setTaskInput] = useState("");
+  const auth = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -10,7 +13,9 @@ const TaskForm = ({ fetchTodosData, todoId }) => {
       description: taskInput,
     };
     await axios
-      .post(`/${todoId}/createToDoTask`, data)
+      .post(`/${todoId}/createToDoTask`, data, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
       .then(() => {
         setTaskInput("");
         fetchTodosData();

@@ -8,10 +8,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
   const [showToDoForm, setShowToDoForm] = useState(false);
   const [selectedOption, setSelectedOption] = useState("des");
+
+  const auth = useContext(AuthContext);
+
   let elementReference = useRef();
 
   const handleAdd = () => {
@@ -26,8 +31,10 @@ const ToDoList = ({ todos, setTodos, fetchTodosData }) => {
 
   useEffect(() => {
     const fetchData = async (sort) => {
-      const res = await axios.get(`/getToDos/sort/${sort}`);
-      // console.log(res.data.sortedData);
+      const res = await axios.get(`/getToDos/sort/${sort}`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
+      console.log(res);
       setTodos(res.data.sortedData);
     };
     fetchData(selectedOption);

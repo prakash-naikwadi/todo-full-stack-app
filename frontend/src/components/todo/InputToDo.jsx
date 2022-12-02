@@ -5,11 +5,14 @@ import { useState, useRef, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const InputToDo = ({ setShowToDoForm, setTodos }) => {
   const [input, setInput] = useState("");
   const inputElement = useRef();
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     inputElement.current.focus();
@@ -18,8 +21,10 @@ const InputToDo = ({ setShowToDoForm, setTodos }) => {
   const fetchTodosData = async () => {
     // fetching todos API call
     try {
-      const res = await axios.get("/getToDos");
-      setTodos(res.data.Todos.reverse());
+      const res = await axios.get("/getToDos", {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
+      setTodos(res.data.userWithTodos.todos.reverse());
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -32,8 +37,11 @@ const InputToDo = ({ setShowToDoForm, setTodos }) => {
     };
 
     // create ToDo API call
+
     await axios
-      .post("/createToDo", data)
+      .post("/createToDo", data, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
       .then(() => {
         setShowToDoForm(false);
         fetchTodosData();

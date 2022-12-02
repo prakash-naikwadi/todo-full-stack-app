@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import EditTaskModal from "../modals/EditTaskModal";
+import AuthContext from "../context/AuthContext";
 
 const Card = ({ task, todoId, setTodoState, todoState, fetchTodosData }) => {
   const [isedit, setIsEdit] = useState(false);
+  const auth = useContext(AuthContext);
 
   const handleEdit = () => {
     setIsEdit((prev) => !prev);
@@ -16,7 +18,9 @@ const Card = ({ task, todoId, setTodoState, todoState, fetchTodosData }) => {
   const handleDelete = async () => {
     const text = "Do You Really Want To Delete?";
     if (window.confirm(text)) {
-      await axios.delete(`/${todoId}/deleteTask/${task._id}`);
+      await axios.delete(`/${todoId}/deleteTask/${task._id}`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
       const newTodoState = todoState.tasks.filter((item) => {
         return item._id !== task._id;
       });
@@ -31,7 +35,9 @@ const Card = ({ task, todoId, setTodoState, todoState, fetchTodosData }) => {
       description: newTaskDescription,
     };
 
-    await axios.put(`/${todoId}/${task._id}`, data);
+    await axios.put(`/${todoId}/${task._id}`, data, {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    });
 
     const taskIndex = todoState.tasks.findIndex((item) => {
       return item._id === task._id;

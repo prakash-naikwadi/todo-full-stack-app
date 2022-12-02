@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 import "../../index.css";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const ToDoListItem = ({
   title,
@@ -20,12 +22,16 @@ const ToDoListItem = ({
   const [input, setInput] = useState(title);
   const navigate = useNavigate();
 
+  const auth = useContext(AuthContext);
+
   const handleDelete = async () => {
     let text = "Do You really want to delete";
 
     // delete todo api call
     if (window.confirm(text)) {
-      await axios.delete(`/deleteTodo/${_id}`);
+      await axios.delete(`/deleteTodo/${_id}`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
       const newTodos = todos.filter((todo) => {
         return todo._id !== _id;
       });
@@ -52,7 +58,9 @@ const ToDoListItem = ({
 
     // update to do API call
 
-    await axios.put(`/updateToDo/${_id}`, data);
+    await axios.put(`/updateToDo/${_id}`, data, {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    });
     setEditMode(false);
     fetchTodosData();
   };
