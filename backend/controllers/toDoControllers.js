@@ -151,14 +151,23 @@ exports.deleteToDo = async (req, res) => {
 // get todos in ascending order
 exports.sortAscTimeStamp = async (req, res) => {
   try {
-    const sortedData = await ToDo.find().sort({
-      createdAt: 1,
-    });
+    // const sortedData = await ToDo.find().sort({
+    //   createdAt: 1,
+    // });
+
+    const userId = req.userData.userId;
+    // console.log(userId);
+
+    let sortedData = await User.findById(userId)
+      .find()
+      .populate({ path: "todos", options: { sort: { title: 1 } } });
+
+    sortedData[0].password = "";
 
     res.status(201).json({
       success: true,
-      message: "ToDo Deleted Successfully",
-      sortedData,
+      message: "Sorted Todos in Ascending Order  Successfully",
+      sortedData: sortedData[0],
     });
   } catch (error) {
     console.log(error);
@@ -169,14 +178,22 @@ exports.sortAscTimeStamp = async (req, res) => {
 
 exports.sortDescTimeStamp = async (req, res) => {
   try {
-    const sortedData = await ToDo.find().sort({
-      createdAt: -1,
-    });
+    // const sortedData = await ToDo.find().sort({
+    //   createdAt: -1,
+    // });
+
+    const userId = req.userData.userId;
+
+    let sortedData = await User.findById(userId)
+      .find()
+      .populate({ path: "todos", options: { sort: { title: -1 } } });
+
+    sortedData[0].password = "";
 
     res.status(201).json({
       success: true,
-      message: "ToDo Deleted Successfully",
-      sortedData,
+      message: "Sorted Todos in Descending Order  Successfully",
+      sortedData: sortedData[0],
     });
   } catch (error) {
     console.log(error);

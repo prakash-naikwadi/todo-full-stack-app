@@ -125,6 +125,7 @@ exports.login = async (req, res, next) => {
       userId: existingUser.id,
       email: existingUser.email,
       token: token,
+      name: existingUser.name,
     });
   } catch (error) {
     console.log(error);
