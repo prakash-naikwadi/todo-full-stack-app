@@ -23,7 +23,7 @@ This is a TO DO FULL STACK MERN App build using **HTML5, Tailwind CSS , React, N
 ## 📌 My process
 
 - In **"JavaScript Full Stack Web Developer Bootcamp"** by **iNeuron** we get familiar with MERN stack concepts.
-- Started learning react concepts and for practicing these concepts this project help me.
+- Started learning MERN concepts and for practicing these concepts this project help me.
 - It took me about **10 days** to complete this project.
 
 ## 📬 Connect With Me
@@ -34,6 +34,4 @@ This is a TO DO FULL STACK MERN App build using **HTML5, Tailwind CSS , React, N
 
 ## 📌 Acknowledgments
 
-- Course Instructor - [Brad Traversy](https://www.traversymedia.com/)
-- Icons Used For Tech Stack Section - [https://img.shields.io](https://img.shields.io)
 - This ReadMe File Inspired From - [Jigar Sable](https://github.com/jigar-sable)
